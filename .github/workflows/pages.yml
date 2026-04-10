@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/configure-pages@v6
       - name: Prepare static site artifact
-        run: mkdir -p _site && cp -R demo/. _site/ && cp -R src _site/src
+        run: mkdir -p _site && cp -R demo _site/demo && cp -R src _site/src && cp demo/index.html _site/index.html && python3 -c "from pathlib import Path; p = Path('_site/index.html'); p.write_text(p.read_text().replace('src=\"./application.js\"', 'src=\"./demo/application.js\"'))"
       - uses: actions/upload-pages-artifact@v4
         with:
           path: _site
