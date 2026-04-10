@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arithmetic Nudge Fixture</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.5"
+        }
+      }
+    </script>
+    <style>
+      .sample { width: 140px; white-space: nowrap; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <p id="subject" class="sample" data-controller="truncate-text-middle">Quarterly-Financial-Report-Final-Really-Final-v27.pdf</p>
+
+    <script type="module">
+      import { Application } from '@hotwired/stimulus'
+      import TruncateTextMiddleController from '/src/truncate_text_middle_controller.js'
+
+      Object.defineProperty(document, 'fonts', { value: undefined, configurable: true })
+      window.ResizeObserver = undefined
+
+      window.__fitsCalls = 0
+      window.__fullFallbackCalls = 0
+
+      const originalFits = TruncateTextMiddleController.prototype.fits
+      TruncateTextMiddleController.prototype.fits = function (text, width, font) {
+        window.__fitsCalls += 1
+        if (window.__fitsCalls === 1) return false
+        return originalFits.call(this, text, width, font)
+      }
+
+      const originalMiddleTruncateWithFits = TruncateTextMiddleController.prototype.middleTruncateWithFits
+      TruncateTextMiddleController.prototype.middleTruncateWithFits = function (text, width, font) {
+        window.__fullFallbackCalls += 1
+        return originalMiddleTruncateWithFits.call(this, text, width, font)
+      }
+
+      const application = Application.start()
+      application.register('truncate-text-middle', TruncateTextMiddleController)
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Disconnect Fonts Ready Fixture</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.5"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <p id="subject" data-controller="truncate-text-middle" style="width: 220px; white-space: nowrap; overflow: hidden;">
+      Quarterly-Financial-Report-Final-Really-Final-v27.pdf
+    </p>
+
+    <script type="module">
+      import { Application } from '@hotwired/stimulus'
+      import TruncateTextMiddleController from '/src/truncate_text_middle_controller.js'
+
+      let resolveFontsReady
+      Object.defineProperty(document, 'fonts', {
+        value: {
+          ready: new Promise(resolve => {
+            resolveFontsReady = resolve
+          })
+        },
+        configurable: true
+      })
+
+      window.__resolveFontsReady = () => resolveFontsReady()
+      window.__errors = []
+      window.addEventListener('error', event => {
+        window.__errors.push(event.message)
+      })
+
+      const originalIsOverflowing = TruncateTextMiddleController.prototype.isOverflowing
+      TruncateTextMiddleController.prototype.isOverflowing = function () {
+        if (!this.element.isConnected) {
+          throw new Error('isOverflowing called on disconnected element')
+        }
+
+        return originalIsOverflowing.call(this)
+      }
+
+      const application = Application.start()
+      application.register('truncate-text-middle', TruncateTextMiddleController)
+    </script>
+  </body>
+</html>

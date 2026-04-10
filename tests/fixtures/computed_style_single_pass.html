@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Computed Style Single Pass Fixture</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.5"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <p id="subject" data-controller="truncate-text-middle" style="display: block; max-width: 120px; white-space: nowrap; overflow: hidden; line-height: normal;">
+      Quarterly-Financial-Report-Final-Really-Final-v27.pdf
+    </p>
+
+    <script type="module">
+      import { Application } from '@hotwired/stimulus'
+      import TruncateTextMiddleController from '/src/truncate_text_middle_controller.js'
+
+      Object.defineProperty(document, 'fonts', { value: undefined, configurable: true })
+      window.ResizeObserver = undefined
+
+      const originalGetComputedStyle = window.getComputedStyle.bind(window)
+      window.__computedStyleCalls = 0
+      window.getComputedStyle = function (...args) {
+        window.__computedStyleCalls += 1
+        return originalGetComputedStyle(...args)
+      }
+
+      const originalConnect = TruncateTextMiddleController.prototype.connect
+      TruncateTextMiddleController.prototype.connect = function () {
+        originalConnect.call(this)
+        window.__controller = this
+      }
+
+      const application = Application.start()
+      application.register('truncate-text-middle', TruncateTextMiddleController)
+    </script>
+  </body>
+</html>

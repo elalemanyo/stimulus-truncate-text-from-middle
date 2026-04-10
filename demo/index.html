@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stimulus Truncate Text from Middle</title>
+    <link rel="icon" href="https://fav.farm/✂️" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.5"
+        }
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-base-200 text-base-content">
+    <main data-controller="width-slider" class="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-8 sm:px-6">
+      <header>
+        <h1 class="font-extrabold leading-tight flex flex-col gap-1 *:[text-box:trim-both_cap_alphabetic] *:leading-[1]">
+          <span
+            data-controller="fit-text"
+            data-fit-text-min-value="18"
+            data-fit-text-max-value="120"
+          >Stimulus Truncate</span>
+          <span
+            data-controller="fit-text"
+            data-fit-text-min-value="18"
+            data-fit-text-max-value="120"
+            class="text-primary"
+          >Text from Middle</span>
+        </h1>
+      </header>
+
+      <header class="card border border-base-300 bg-base-100">
+        <div class="card-body gap-3 p-5">
+          <input
+          id="widthSlider"
+          data-width-slider-target="slider"
+          data-action="input->width-slider#sync"
+          type="range"
+          min="35"
+          max="100"
+          value="100"
+          class="range range-primary w-full"
+          >
+          <label for="widthSlider" class="flex items-center justify-center text-sm">
+            <span class="badge badge-soft badge-primary gap-0.5">
+              <span id="widthValue" data-width-slider-target="value" class="font-semibold">100</span>%
+            </span>
+          </label>
+        </div>
+      </header>
+
+      <div id="demo-list" data-width-slider-target="list" class="space-y-3">
+        <section class="space-y-3">
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p class="text-sm whitespace-nowrap overflow-hidden">Short text stays unchanged.</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm whitespace-nowrap overflow-hidden">Quarterly-Financial-Report-Final-Really-Final-v27.pdf</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm whitespace-nowrap overflow-hidden">https://example.com/projects/consultancies/very/long/path/to/the/original/source/documentation/index.html</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-xs whitespace-nowrap overflow-hidden">Very-small-text-demo-for-middle-truncation-on-a-long-filename-with-many-segments-and-a-clear-ending.log</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-lg whitespace-nowrap overflow-hidden">A larger font size should still keep both start and end visible when possible in this long sentence example.</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm font-bold whitespace-nowrap overflow-hidden">Bold-weight-document-reference-for-yearly-tax-submission-attachment-archive-2026-final-copy.xlsx</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm italic whitespace-nowrap overflow-hidden">Italic-style-preview-for-a-very-long-human-readable-title-that-needs-middle-truncation-in-a-tight-container.</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm font-mono whitespace-nowrap overflow-hidden">/Users/demo/workspace/apps/example-project/src/components/super-long-path-name/entrypoint/main_controller.ts</p>
+            </div>
+          </article>
+
+          <article class="card card-sm border border-base-300 bg-base-100">
+            <div class="card-body p-3">
+              <p data-controller="truncate-text-middle" class="text-sm [font-family:Georgia,Times,serif] whitespace-nowrap overflow-hidden">Serif-font-demonstration-with-a-lengthy-book-title-and-subtitle-that-should-truncate-neatly-in-the-middle.</p>
+            </div>
+          </article>
+        </section>
+
+        <section class="card border border-base-300 bg-base-100">
+          <div class="card-body p-0">
+            <div class="overflow-x-auto">
+              <table class="table table-zebra table-sm table-fixed">
+                <thead>
+                  <tr>
+                    <th class="w-28">Kind</th>
+                    <th data-controller="truncate-text-middle">Table truncation sample</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Path</td>
+                    <td><span data-controller="truncate-text-middle" class="block w-full whitespace-nowrap overflow-hidden">/opt/projects/company/internal/tools/frontend/components/very-long-folder-name/main-entrypoint.ts</span></td>
+                  </tr>
+                  <tr>
+                    <td>URL</td>
+                    <td><span data-controller="truncate-text-middle" class="block w-full whitespace-nowrap overflow-hidden">https://docs.example.com/engineering/design-systems/components/typography/middle-truncation-guidelines.html</span></td>
+                  </tr>
+                  <tr>
+                    <td>Filename</td>
+                    <td><span data-controller="truncate-text-middle" class="block w-full whitespace-nowrap overflow-hidden">customer-onboarding-contract-amendment-version-12-signed-copy.pdf</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="./application.js"></script>
+  </body>
+</html>

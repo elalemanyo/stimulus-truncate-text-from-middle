@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Truncate Test Fixture</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "@hotwired/stimulus": "https://unpkg.com/@hotwired/stimulus/dist/stimulus.js",
+          "@chenglou/pretext": "https://esm.sh/@chenglou/pretext@0.0.5"
+        }
+      }
+    </script>
+    <style>
+      body { font-family: sans-serif; }
+      .sample { width: 220px; padding: 0; margin: 8px 0; white-space: nowrap; overflow: hidden; border: 1px solid #ddd; }
+    </style>
+  </head>
+  <body>
+    <p id="long" class="sample" data-controller="truncate-text-middle">Quarterly-Financial-Report-Final-Really-Final-v27.pdf</p>
+    <p id="short" class="sample" data-controller="truncate-text-middle">short.txt</p>
+    <p id="ending" class="sample" data-controller="truncate-text-middle" data-truncate-text-middle-min-end-value="5">https://example.com/some/really/long/path/to/the/original/source/documentation/index.html</p>
+    <p id="resizable" class="sample" data-controller="truncate-text-middle">customer-onboarding-contract-amendment-version-12-signed-copy.pdf</p>
+
+    <script type="module">
+      import { Application } from '@hotwired/stimulus'
+      import TruncateTextMiddleController from '/src/truncate_text_middle_controller.js'
+
+      const application = Application.start()
+      application.register('truncate-text-middle', TruncateTextMiddleController)
+    </script>
+  </body>
+</html>
