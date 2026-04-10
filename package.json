@@ -2,7 +2,10 @@
   "name": "stimulus-truncate-text-from-middle",
   "version": "0.1.0",
   "description": "Stimulus controller for middle text truncation, powered by @chenglou/pretext",
-  "repository": "https://github.com/elalemanyo/stimulus-truncate-text-from-middle",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elalemanyo/stimulus-truncate-text-from-middle.git"
+  },
   "homepage": "https://elalemanyo.github.io/stimulus-truncate-text-from-middle/",
   "bugs": {
     "url": "https://github.com/elalemanyo/stimulus-truncate-text-from-middle/issues"
