@@ -4,6 +4,8 @@
 
 Middle-truncate long text in one line while preserving both the beginning and the end.
 
+[Check out the demo](https://elalemanyo.github.io/stimulus-truncate-text-from-middle/).
+
 This Stimulus controller observes element size changes and recalculates the best middle truncation for the available width. Internally, it uses [`@chenglou/pretext`](https://github.com/chenglou/pretext) to measure text layout accurately, so truncation adapts to real font metrics (font family, weight, size, etc.), not just character count.
 
 ## Controller settings
