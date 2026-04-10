@@ -1,5 +1,7 @@
 # Stimulus Truncate Text from Middle
 
+[![CI](https://github.com/elalemanyo/stimulus-truncate-text-from-middle/actions/workflows/ci.yml/badge.svg)](https://github.com/elalemanyo/stimulus-truncate-text-from-middle/actions/workflows/ci.yml)
+
 Middle-truncate long text in one line while preserving both the beginning and the end.
 
 This Stimulus controller observes element size changes and recalculates the best middle truncation for the available width. Internally, it uses [`@chenglou/pretext`](https://github.com/chenglou/pretext) to measure text layout accurately, so truncation adapts to real font metrics (font family, weight, size, etc.), not just character count.
